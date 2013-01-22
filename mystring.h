@@ -166,7 +166,44 @@ bool inverterPalavras(string * str){
 }
 
 bool inverterLetrasPalavras(string * str){
+    pilha pil;
+    caracter * pos, * aux;
+    string strAux;
 
+    pos = str->inicio;
+
+    if(!initString(&strAux))
+        return false;
+
+    if(!initPilha(&pil, str->len))
+        return false;
+
+    while(pos != NULL){
+
+        if(pos->value != ' '){
+            inserirChar(&strAux, pos->value);
+        }else{
+            inserirChar(&strAux, ' ');
+            inserirStringEmPilha(strAux, &pil);
+
+            if(!initString(&strAux))
+                return false;
+        }
+
+        aux = pos;
+        pos = pos->prox;
+        free(aux);
+
+        if(pos == NULL)
+            inserirStringEmPilha(strAux, &pil);
+    }
+
+    if(!initString(str))
+        return false;
+
+    inserirPilhaEmString(&pil, str);
+    freePilha(&pil);
+    inverterPalavras(str);
     return true;
 }
 
