@@ -4,7 +4,7 @@
 #include "mystring.h"
 
 int main(){
-    char strPadrao1[] = "pedro coelho torres";
+    char strPadrao1[] = "bel doces";
     string str1, str2, str3;
 
     initString(&str1);
@@ -16,32 +16,38 @@ int main(){
     initString(&str3);
     printf("INIT: inicio[%p] Fim[%p] len[%d]\n", str3.inicio, str3.ultimo, str3.len);
 
+    printf("\n\n<<<-----------createString---------------->>>\n");
     createString(&str1, strPadrao1);
-    printf("CREATESTRING: qtd [%d] \n", str1.len);
     printStringFrente(str1);
 
-    printf("\nCOPY_STRING: ");
+    printf("\n\n<<<-----------copyString---------------->>>\n");
     copyString(&str1, &str2);
     printStringFrente(str2);
 
+    printf("\n\n<<<-----------equalString---------------->>>\n");
     if(equalString(str1, str2))
-        printf("\n equalString \nString 1 igual a String 2");
+        printf("String 1 igual a String 2");
     else
-        printf("\n equalString \nStrings diferentes ");
+        printf("Strings diferentes ");
 
-    printf("\nQTD PALAVRAS: [%d] ",lenPalavras(str1));
+    printf("\n\n<<<-----------lenPalavras---------------->>>\n");
+    printf("QTD: [%d] ",lenPalavras(str1));
 
-    printf("\nCONCAT: %d\n", concat(str1, str2, &str3));
+    printf("\n\n<<<-----------concat--------------------->>>\n");
+    concat(str1, str2, &str3);
     printStringFrente(str3);
 
-    printf("\n<<<-------------------------------------->>>\n");
+    printf("\n\n<<<-----------inverterLetras------------->>>\n");
     inverterLetras(&str1);
     printStringFrente(str1);
 
-    printf("\n<<<-------------------------------------->>>\n");
+    printf("\n\n<<<----------inverterPalavras------------>>>\n");
     inverterPalavras(&str1);
     printStringFrente(str1);
 
+    printf("\n\n<<<--------inverterLetrasPalavras-------->>>\n");
+    inverterLetrasPalavras(&str1);
+    printStringFrente(str1);
 
     return 0;
 }
