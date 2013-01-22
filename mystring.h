@@ -23,6 +23,7 @@ bool intercarlarPalavras(string str1, string str2, string * novaString);
 bool concat(string str1, string str2, string * novaString);
 
 bool inserirChar(string *str, char value);
+bool inserirStringEmPilha(string str, pilha * pil);
 void printStringFrente(string str);
 void printStringTras(string str);
 
@@ -119,10 +120,9 @@ bool inverterLetras(string * str){
 }
 
 bool inverterPalavras(string * str){
-     pilha pil;
+    pilha pil;
     char ch;
-    int count = 0;
-    caracter * pos, * aux, * posStr;
+    caracter * pos, * aux;
     string strAux;
 
     pos = str->inicio;
@@ -134,7 +134,6 @@ bool inverterPalavras(string * str){
         return false;
 
     while(pos != NULL){
-        count++;
 
         if(pos->value != ' '){
             inserirChar(&strAux, pos->value);
@@ -144,36 +143,22 @@ bool inverterPalavras(string * str){
                 return false;
 
             inserirChar(&strAux, ' ');
+            inserirStringEmPilha(strAux, &pil);
 
-            posStr = strAux.inicio;
-            while(posStr != NULL){
-                if(!push(&pil, posStr->value))
-                    return false;
-
-                aux = posStr;
-                posStr = posStr->prox;
-                free(aux);
-            }
             if(!initString(&strAux))
                 return false;
         }
 
-        if(count == str->len){
-            if(!inverterLetras(&strAux))
-                return false;
-
-            posStr = strAux.inicio;
-            while(posStr != NULL){
-                if(!push(&pil, posStr->value))
-                    return false;
-                aux = posStr;
-                posStr = posStr->prox;
-                free(aux);
-            }
-        }
         aux = pos;
         pos = pos->prox;
         free(aux);
+
+        if(pos == NULL){
+            if(!inverterLetras(&strAux))
+                return false;
+
+            inserirStringEmPilha(strAux, &pil);
+        }
     }
 
     if(!initString(str))
@@ -225,6 +210,21 @@ bool inserirChar(string *str, char value){
 
     str->ultimo = novo;
     str->len++;
+    return true;
+}
+
+bool inserirStringEmPilha(string str, pilha * pil){
+    caracter * pos, * aux;
+
+    pos = str.inicio;
+    while(pos != NULL){
+        if(!push(pil, pos->value))
+            return false;
+
+        aux = pos;
+        pos = pos->prox;
+        free(aux);
+    }
     return true;
 }
 
