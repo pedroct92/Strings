@@ -24,6 +24,7 @@ bool concat(string str1, string str2, string * novaString);
 
 bool inserirChar(string *str, char value);
 bool inserirStringEmPilha(string str, pilha * pil);
+bool inserirPilhaEmString(pilha * pil, string * str);
 void printStringFrente(string str);
 void printStringTras(string str);
 
@@ -97,7 +98,6 @@ int lenPalavras(string str){
 bool inverterLetras(string * str){
     caracter * pos, * aux;
     pilha pil;
-    char ch;
 
     initPilha(&pil, str->len);
 
@@ -109,19 +109,15 @@ bool inverterLetras(string * str){
         pos = pos->prox;
         free(aux);
     }
-    initString(str);
 
-    while(pop(&pil, &ch)){
-        if(!inserirChar(str, ch))
-            return false;
-    }
+    initString(str);
+    inserirPilhaEmString(&pil, str);
     freePilha(&pil);
     return true;
 }
 
 bool inverterPalavras(string * str){
     pilha pil;
-    char ch;
     caracter * pos, * aux;
     string strAux;
 
@@ -164,11 +160,7 @@ bool inverterPalavras(string * str){
     if(!initString(str))
         return false;
 
-    while(pop(&pil, &ch)){
-        if(!inserirChar(str, ch))
-            return false;
-    }
-
+    inserirPilhaEmString(&pil, str);
     freePilha(&pil);
     return true;
 }
@@ -224,6 +216,16 @@ bool inserirStringEmPilha(string str, pilha * pil){
         aux = pos;
         pos = pos->prox;
         free(aux);
+    }
+    return true;
+}
+
+bool inserirPilhaEmString(pilha * pil, string * str){
+    char ch;
+
+    while(pop(pil, &ch)){
+        if(!inserirChar(str, ch))
+            return false;
     }
     return true;
 }
