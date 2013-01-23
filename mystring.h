@@ -2,8 +2,8 @@
 #include "mypilha.h"
 
 typedef struct tCaracter{ char value;
-                          struct str * prox;
-                          struct str * ante;
+                          struct tCaracter * prox;
+                          struct tCaracter * ante;
                          }caracter;
 
 typedef struct tString{ caracter * inicio;
