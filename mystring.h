@@ -23,6 +23,7 @@ bool intercarlarPalavras(string str1, string str2, string * novaString);
 bool concat(string str1, string str2, string * novaString);
 
 bool inserirChar(string *str, char value);
+bool clearString(string * str);
 bool inserirStringEmPilha(string str, pilha * pil);
 bool inserirPilhaEmString(pilha * pil, string * str);
 void printStringFrente(string str);
@@ -36,6 +37,8 @@ bool initString(string * str){
 }
 
 bool createString(string * str, const char* strPadrao){
+    clearString(str);
+    initString(str);
     int len;
     for(len = 0; strPadrao[len] != 0; len++){
         if(!inserirChar(str, strPadrao[len]))
@@ -227,31 +230,26 @@ bool intercarlarPalavras(string str1, string str2, string * novaString){
         }else{
             inserirChar(&strAux, ' ');
             copyString(&strAux, novaString);
+            palavraInserida = false;
 
             if(!initString(&strAux))
                 return false;
 
-                while(pos2 != NULL && !palavraInserida){
+            while(pos2 != NULL && !palavraInserida){
 
-                    if(pos2->value != ' '){
+                if(pos2->value != ' '){
+                    inserirChar(&strAux, pos2->value);
+                }else{
+                    copyString(&strAux, novaString);
+                    inserirChar(novaString, ' ');
 
-                        inserirChar(&strAux, pos2->value);
-                    }else{
-                        inserirChar(&strAux, ' ');
-                        copyString(&strAux, novaString);
+                    if(!initString(&strAux))
+                        return false;
 
-                        if(!initString(&strAux))
-                            return false;
-
-                        palavraInserida = false;
-                    }
-
-                    aux = pos2;
-                    pos2 = pos2->prox;
-
-                    if(pos2 == NULL)
-                        copyString(&strAux, novaString);
+                    palavraInserida = true;
                 }
+                pos2 = pos2->prox;
+            }
         }
 
         aux = pos;
@@ -259,6 +257,11 @@ bool intercarlarPalavras(string str1, string str2, string * novaString){
 
         if(pos == NULL)
             copyString(&strAux, novaString);
+    }
+
+    while(pos2 != NULL){
+        inserirChar(novaString, pos2->value);
+        pos2 = pos2->prox;
     }
     return true;
 }
@@ -291,6 +294,19 @@ bool inserirChar(string *str, char value){
 
     str->ultimo = novo;
     str->len++;
+    return true;
+}
+
+bool clearString(string * str){
+    caracter * pos, * aux;
+
+    pos = str->inicio;
+
+    while(pos != NULL){
+        aux = pos;
+        pos = pos->prox;
+        free(aux);
+    }
     return true;
 }
 

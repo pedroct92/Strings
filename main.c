@@ -49,22 +49,18 @@ int main(){
     inverterLetrasPalavras(&str1);
     printStringFrente(str1);
 
+    createString(&str1, "introducao a logica matematica");
+    createString(&str2, "estruturas de dados");
+
     printf("\n\n<<<--------intercarlarPalavras----------->>>\n");
-    printf("Sting 1: ");
+    printf("String 1 ....: ");
     printStringFrente(str1);
-    printf("\nString 2: ");
+    printf("\nString 2 ....: ");
     printStringFrente(str2);
     printf("\n");
-
     intercarlarPalavras(str1, str2, &str3);
-    printStringFrente(str3);
-
-    printf("\n\n<<<--------FIM----------->>>\n");
-    printStringFrente(str1);
-    printf("\n");
-    printStringFrente(str2);
     printf("\n");
     printStringFrente(str3);
-
+    printf("\n");
     return 0;
 }
