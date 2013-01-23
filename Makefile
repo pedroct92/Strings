@@ -13,4 +13,4 @@ mystring.o: mystring.h
 	gcc -c mystring.h
 
 clean: 
-	rm -rf *o strings
+	rm -rf *o *exe *gch strings
