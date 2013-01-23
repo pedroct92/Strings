@@ -1,3 +1,7 @@
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 typedef struct tPilha{ int topo;
                        char * p;
                        int tm;
