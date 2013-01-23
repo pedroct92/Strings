@@ -208,6 +208,58 @@ bool inverterLetrasPalavras(string * str){
 }
 
 bool intercarlarPalavras(string str1, string str2, string * novaString){
+    caracter * pos, * pos2, * aux;
+    string strAux;
+    bool palavraInserida = false;
+
+    if(!initString(&strAux))
+        return false;
+
+    if(!initString(novaString))
+        return false;
+
+    pos = str1.inicio;
+    pos2 = str2.inicio;
+    while(pos != NULL){
+
+        if(pos->value != ' '){
+            inserirChar(&strAux, pos->value);
+        }else{
+            inserirChar(&strAux, ' ');
+            copyString(&strAux, novaString);
+
+            if(!initString(&strAux))
+                return false;
+
+                while(pos2 != NULL && !palavraInserida){
+
+                    if(pos2->value != ' '){
+
+                        inserirChar(&strAux, pos2->value);
+                    }else{
+                        inserirChar(&strAux, ' ');
+                        copyString(&strAux, novaString);
+
+                        if(!initString(&strAux))
+                            return false;
+
+                        palavraInserida = false;
+                    }
+
+                    aux = pos2;
+                    pos2 = pos2->prox;
+
+                    if(pos2 == NULL)
+                        copyString(&strAux, novaString);
+                }
+        }
+
+        aux = pos;
+        pos = pos->prox;
+
+        if(pos == NULL)
+            copyString(&strAux, novaString);
+    }
     return true;
 }
 
