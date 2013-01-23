@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "mystring.h"
+#include "mypilha.h"
 
 int main(){
     char strPadrao1[] = "ana maria";
